@@ -11,3 +11,6 @@ Customed analysis code used in this study can be found [here](paper).
 
 ## Tutorial
 Installation and guidance of ZOOM can be found [here](https://zoom-tutorial.readthedocs.io/en/latest/).
+
+## Citation
+Our article has not been published yet.
