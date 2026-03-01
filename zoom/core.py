@@ -15,9 +15,9 @@ import anndata as ad
 import os
 from statsmodels.stats.multitest import multipletests
 from typing import Optional, Union, Dict, List
-from data_loader import load_sc, load_df
-import pls_tool as pls
-import sc_tool as sct
+from zoom.data_loader import load_sc, load_df
+import zoom.pls_tool as pls
+import zoom.sc_tool as sct
 
 class ZOOM:
     
