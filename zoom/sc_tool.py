@@ -18,7 +18,7 @@ import scipy.sparse as sp
 from joblib import Parallel, delayed
 import subprocess
 from typing import (Tuple, Union, Optional, Dict, Any)
-from data_loader import load_sc, load_df
+from zoom.data_loader import load_sc, load_df
 
 def preprocess(
     adata: ad.AnnData,
