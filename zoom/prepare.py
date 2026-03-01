@@ -19,7 +19,7 @@ from neuromaps.images import load_data
 from neuromaps.nulls.spins import (gen_spinsamples, get_parcel_centroids,
                                    load_spins, spin_data, spin_parcels)
 from typing import Union, Tuple
-from data_loader import (get_vertex_num, load_gii, load_parc)
+from zoom.data_loader import (get_vertex_num, load_gii, load_parc)
 
 def abagen_ctx(
     atlas: Union[nib.Nifti1Image, Tuple, dict],
