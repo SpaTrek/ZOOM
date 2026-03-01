@@ -67,5 +67,4 @@ Install ``zoom``:
 
 .. code-block:: bash
 
-    $ python setup.py build
-    $ python setup.py install
+    $ pip install .
