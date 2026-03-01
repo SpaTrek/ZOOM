@@ -1,4 +1,4 @@
-# ZOOM
+# ZOOM (Zoom from Macro to Micro)
 
 ## Decoding molecular and cellular underpinnings of macroscopic spatial brain phenotypes with ZOOM
 ZOOM is a Python-based integrative framework for linking macroscopic and mesoscopic spatial brain phenotypes (SBPs) with microscopic molecular, cellular information.
