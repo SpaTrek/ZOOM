@@ -70,7 +70,7 @@ def preprocess(
     
     # Keep commnon genes between scRNA-seq data and AHBA
     sc_genes = list(adata.var_names)
-    ahba_genes = list(expression.column)
+    ahba_genes = list(expression.columns)
     common_genes = [g for g in ahba_genes if g in set(sc_genes)]
     expression = expression.loc[:, common_genes]
     DS = load_df(DS)
