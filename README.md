@@ -10,7 +10,7 @@ ZOOM is a Python-based integrative framework for linking macroscopic and mesosco
 Code used to generate results of this study can be found [here](paper).
 
 ## Tutorial
-Installation and guidance of ZOOM can be found [here](https://zoom-tutorial.readthedocs.io/en/latest/).
+Detailed guidance of ZOOM can be found [here](https://zoom-tutorial.readthedocs.io/en/latest/).
 
 ## Citation
 Our article has not been published yet.
