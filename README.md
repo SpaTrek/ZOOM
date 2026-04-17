@@ -10,24 +10,26 @@ ZOOM is a Python-based integrative framework for linking macroscopic and mesosco
 Code used to generate results of this study can be found [here](paper).
 
 ## Tutorial
-For quick start, you can download [demostration data](https://drive.google.com/file/d/1kQ6hbkaS7PvuaTy3hyCcY3cVNnD_gjvy/view?usp=sharing) and run the following code, which will decode the single-cell underpinnings of Adolescent change in myelination (ΔMT).
-快速下载Python包zoom
-
+To get started with ZOOM, we recommend creating a dedicated conda environment to manage dependencies:
 ```
+# Create and activate the environment
 conda create -n zoom_env python=3.9
 conda activate zoom_env
-cd ZOOM-main
+
+# Clone the repository and install dependencies
+git clone https://github.com/SpaTrek/ZOOM.git
+cd ZOOM
 pip install -r requirements.txt
 pip install .
 ```
-用于Demonstration的代码
+This tutorial demonstrates how to use ZOOM to decode the single-cell underpinnings of adolescent myelination changes (ΔMT). you need to download the [Demonstration Data](https://drive.google.com/file/d/1kQ6hbkaS7PvuaTy3hyCcY3cVNnD_gjvy/view?usp=sharing) and place it in your working directory (e.g., ./ZOOM_demodata).
 ```
 import scanpy as sc
 import pandas as pd
 import numpy as np
 import zoom
 import os
-os.chdir("/.../demo")
+os.chdir("./ZOOM_demodata")
 
 # Prepare AHBA expression and SBP data
 expression = pd.read_csv("expression_HCPMMP.csv",index_col=0)
@@ -37,6 +39,7 @@ SBP, SBP_perm = zoom.prepare.process_SBP(
     atlas="fsLR", density="32k", hemi="L",
     n_perm=1000, seed=123
 )
+
 # Keep valid regions
 SBP = SBP[SBP.index.isin(expression.index)]
 SBP_perm = SBP_perm[SBP_perm.index.isin(expression.index)]
@@ -52,6 +55,7 @@ zoom_obj = zoom.ZOOM_SC(
 )
 zoom_obj.cv_PLSR()
 zoom_obj.get_gene_contrib(metric="VIP")
+
 # Compute ZOOM single-cell score
 zoom_obj.get_SBP_score(
     direction=True,
@@ -60,19 +64,20 @@ zoom_obj.get_SBP_score(
     alpha=0.1,
     group="Subcluster"
 )
+
 # For visualization
 zoom_obj.adata.obs["norm_score"] = zoom_obj.SBP_scores["norm_score"]
 zoom_obj.adata.obs["p_fdr0.1"] = zoom_obj.SBP_scores["p_fdr0.1"]
-zoom_obj.adata.obs['sig_score'] = zoom_obj.adata.obs['norm_score'].where((zoom_obj.adata.obs['p_fdr0.1']=='True')&(zoom_obj.adata.obs['norm_score']>3), other=np.nan)
-sc.pl.embedding(zoom_obj.adata, basis='umap', color='Cluster', size=5)
-sc.pl.embedding(zoom_obj.adata, basis='umap', color='norm_score',
-                size=5,color_map='magma',frameon=False)
-sc.pl.embedding(zoom_obj.adata, basis='umap', color='sig_score', 
-                vmin=min(zoom_obj.adata.obs["norm_score"]),
-                vmax=max(zoom_obj.adata.obs["norm_score"]),
-                na_color='lightgray', size=5, color_map='magma', frameon=False)
+# Filter for significant scores
+zoom_obj.adata.obs['sig_score'] = zoom_obj.adata.obs['norm_score'].where(
+    (zoom_obj.adata.obs['p_fdr0.1'] == 'True') & (zoom_obj.adata.obs['norm_score'] > 3), 
+    other=np.nan
+)
+# Plotting
+sc.pl.embedding(zoom_obj.adata, basis='umap', color=['Cluster', 'norm_score', 'sig_score'], 
+                size=5, color_map='magma', frameon=False)
 ```
-这在48个核的Linux服务器上大概需要3min左右的运行时间。
+CPU times: user 6min 48s, sys: 43min 58s, total: 50min 47s, Wall time: 2min 43s
 
 Detailed guidance of ZOOM can be found [here](https://zoom-tutorial.readthedocs.io/en/latest/).
 
