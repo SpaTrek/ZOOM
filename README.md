@@ -78,7 +78,7 @@ sc.pl.embedding(zoom_obj.adata, basis='umap', color=['Cluster', 'norm_score', 's
                 size=5, color_map='magma', frameon=False)
 ```
 CPU times: user 6min 48s, sys: 43min 58s, total: 50min 47s, Wall time: 2min 43s
-
+![avatar](docs/demo_results.png)
 Detailed guidance of ZOOM can be found [here](https://zoom-tutorial.readthedocs.io/en/latest/).
 
 ## Citation
